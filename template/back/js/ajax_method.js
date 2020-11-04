@@ -168,35 +168,6 @@ function delete_confirm(id, msg) {
     });
 }
 
-
-function verify_offline_payment(id, msg) {
-    msg = '<div class="modal-title">' + msg + '</div>';
-    bootbox.confirm(msg, function (result) {
-        if (result) {
-            ajax_load(base_url + '' + user_type + '/' + module + '/' + dlt_cont_func + '/' + id, 'list', 'delete');
-            $.activeitNoty({
-                type: 'danger',
-                icon: 'fa fa-check',
-                message: voffp,
-                container: 'floating',
-                timer: 3000
-            });
-            sound('delete');
-        } else {
-            $.activeitNoty({
-                type: 'danger',
-                icon: 'fa fa-minus',
-                message: cncle,
-                container: 'floating',
-                timer: 3000
-            });
-            sound('cancelled');
-        }
-        ;
-    });
-}
-
-
 function other_confirm(func, id, msg, noty) {
     msg = '<div class="modal-title">' + msg + '</div>';
     bootbox.confirm(msg, function (result) {

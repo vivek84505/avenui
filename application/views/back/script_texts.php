@@ -1,7 +1,6 @@
 <script>
 	var base_url = "<?php echo base_url(); ?>"; 
 	var dss = "<?php echo translate("deleted_successfully"); ?>";
-	var voffp = "<?php echo translate("payment_verified_successfully"); ?>";
 	var added_to_archive = "<?php echo translate("moved_to_archive_list"); ?>";
 	var added_to_list = "<?php echo translate("moved_to_news_list"); ?>";
 	var cncle = "<?php echo translate("cancelled"); ?>";

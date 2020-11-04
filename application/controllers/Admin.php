@@ -3929,46 +3929,7 @@ class Admin extends CI_Controller {
             $this->load->view('back/index', $page_data);
         }
     }
-*/  
-     /**
-     * @param string $para1
-     * @param string $para2
-     */
-    /* User Management */
-    function offline_payment($para1 = '', $para2 = '') {
-
-            if ($para1 == 'list') {
-             
-                $this->db->select('*');
-                $this->db->from('advertisement_payment');
-                $this->db->join('advertisement', 'advertisement.advertisement_id=advertisement_payment.advertisement_id');
-               $this->db->join('user', 'advertisement_payment.user_id=user.user_id');
-               $this->db->where(['advertisement_payment.payment_type' => 'offline','advertisement_payment.payment_status' => 'due' ]);
-                $page_data['payment_data'] = $this->db->get()->result_array();
- 
-            
-            $this->load->view('back/admin/offline_payment_list', $page_data);
-           
-
-            }
-            else if ($para1 == 'verify') {
-                
-                $this->db->where('advertisement_payment_id', $para2);
-            $res = $this->db->update('advertisement_payment', ['payment_status'=> 'paid','offline_payment_verified'=>1]);
-            print_r($res);
-
-            }
-            else{
-                
-                 $page_data['page_name'] = "offline_payment";
-            
-                  $this->load->view('back/index', $page_data);
-            }
-           
-
-    }
-
-
+*/
     /**
      * @param string $para1
      * @param string $para2
