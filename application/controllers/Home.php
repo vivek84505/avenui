@@ -3097,6 +3097,33 @@ function archive_ajax_news_list($para1 = '') {
         echo 'done';
     }
 
+
+    function get_package_dates($advertisement_id,$package_id){
+
+        
+        $date = new DateTime(date("Y-m-d h:i:s"));
+        $date_result ['pkg_start_date'] =  $date->format('Y-m-d h:i:s');
+ 
+
+        $result =$this->db->get_where('advertisement',array('advertisement_id' => $advertisement_id,'status'=>'ok'))->row();
+        
+
+        $package_data = json_decode($result->package , TRUE);
+
+
+        switch($package_id){
+            case 1: $date->modify('+7 day');break;
+            case 2: $date->modify('+30 day');break;
+            case 3: $date->modify('+182 day');break;
+            case 4: $date->modify('+365 day');break;
+        }
+      
+        $date_result ['pkg_end_date'] =  $date->format('Y-m-d h:i:s');
+       
+    
+        return  $date_result;
+
+    }
     // For advertisement section
     function get_banner_section($para1=''){
         $page_data['ad_element'] = $this->db->get_where('advertisement',array('page_id' => $para1,'status'=>'ok'))->result_array();
@@ -3150,6 +3177,47 @@ function archive_ajax_news_list($para1 = '') {
                 }
             }
 
+             if ($this->input->post('payment_type') == 'offline') {
+               
+                $data['user_id']            = $user_id;
+                $data['advertisement_id']   = $advertisement_id;
+                $data['package_id']         = $package_id;
+                $data['payment_type']       = 'offline';
+                $data['payment_status']     = 'due';
+                $data['payment_details']    = 'none';
+                $data['amount']             = $amount;
+               
+
+                $package_dates = $this->get_package_dates($advertisement_id,$package_id);
+
+                $data['purchase_datetime']  =$package_dates['pkg_start_date'];
+                $data['expire_timestamp']  =$package_dates['pkg_end_date'];
+
+ 
+
+                $this->db->insert('advertisement_payment', $data);
+                $payment_id           = $this->db->insert_id();
+                
+                  $userdata = $this->db->get_where('user' , array('user_id' => $user_id))->row();
+                  
+                $data['billing_name']  = $userdata->firstname.' '.$userdata->lastname;
+                $data['billing_address']  = $userdata->address1.' '.$userdata->address2;
+                $data['billing_state']  = $userdata->state;
+                $data['billing_zip']  = $userdata->zip;
+                $data['billing_country']  = $userdata->country;
+                $data['billing_tel']  = $userdata->phone;
+                $data['billing_email']  = $userdata->email;
+                  
+                //sending Account details through SMS 
+
+
+                //sending Account details through Email    
+
+
+
+                $this->load->view('front/offline_payment_thankyou',$data);
+             }
+
              if ($this->input->post('payment_type') == 'ccavenue') {
                
                 $data['user_id']            = $user_id;
@@ -3159,7 +3227,12 @@ function archive_ajax_news_list($para1 = '') {
                 $data['payment_status']     = 'due';
                 $data['payment_details']    = 'none';
                 $data['amount']             = $amount;
-                $data['purchase_datetime']  = time();
+
+                $package_dates = $this->get_package_dates($advertisement_id,$package_id);
+
+                $data['purchase_datetime']  =$package_dates['pkg_start_date'];
+                $data['expire_timestamp']  =$package_dates['pkg_end_date'];
+
 
 
 
@@ -3191,8 +3264,11 @@ function archive_ajax_news_list($para1 = '') {
                 $data['payment_status']     = 'due';
                 $data['payment_details']    = 'none';
                 $data['amount']             = $amount;
-                $data['purchase_datetime']  = time();
+                
+                $package_dates = $this->get_package_dates($advertisement_id,$package_id);
 
+                $data['purchase_datetime']  =$package_dates['pkg_start_date'];
+                $data['expire_timestamp']  =$package_dates['pkg_end_date'];
 
 
                  $this->db->insert('advertisement_payment', $data);

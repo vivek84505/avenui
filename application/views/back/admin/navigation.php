@@ -895,6 +895,16 @@
                                 </span>
                             </a>
                         </li>
+
+                          <li <?php if ($page_name == "offline_payment") { ?> class="active-link" <?php } ?> >
+                            <a href="<?php echo base_url(); ?>admin/offline_payment/">
+                                <i class="fa fa-lock"></i>
+                                <span class="menu-title">
+                                    <?php echo translate('offline_payment'); ?>
+                                </span>
+                            </a>
+                        </li>
+
                     </ul>
                 </div>
             </div>

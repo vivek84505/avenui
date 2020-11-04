@@ -2,7 +2,7 @@
     <?php
         if ($p_set == 'ok') {
     ?>
-        <div class="cc-selector col-md-4 col-md-offset-2">
+        <div class="cc-selector col-md-4">
             <input id="paypal" type="radio" style="display:block;" checked name="payment_type" value="ccavenue"/>
             <label class="drinkcard-cc" style="margin-bottom:0px; width:100%; overflow:hidden; height:200px;" for="ccavenue" onclick="radio_check('paypal')">
                 <img class="image_delay" src="<?php echo img_loading(); ?>" data-src="<?php echo base_url(); ?>uploads/others/ccavenue.png" width="100%" height="100%" style=" text-align-last:center;" alt="<?php echo translate('ccavenue');?>" />
@@ -18,6 +18,15 @@
                 <img class="image_delay" src="<?php echo img_loading(); ?>" data-src="<?php echo base_url(); ?>uploads/others/payu-banner.png" width="100%" height="100%" style=" text-align-last:center;" alt="<?php echo translate('stripe');?>" />
             </label>
         </div>
+
+          <div class="cc-selector col-md-4">
+            <input id="offline" type="radio" style="display:block;" name="payment_type" value="offline"/>
+            <label class="drinkcard-cc" id="customButtong" style="margin-bottom:0px; width:100%; overflow:hidden; height:200px;" for="offline" onclick="radio_check('offline')">
+                <img class="image_delay" src="<?php echo img_loading(); ?>" data-src="<?php echo base_url(); ?>uploads/others/offline-payment.jpg" width="100%" height="100%" style=" text-align-last:center;" alt="<?php echo translate('Offline_Payment');?>" />
+            </label>
+        </div>
+
+
         <script>
             $(document).ready(function(e) {
                 var handler = StripeCheckout.configure({
