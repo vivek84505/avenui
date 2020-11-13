@@ -49,7 +49,7 @@
                                 </div>
                                 <div class="package-footer">
                                     <?php if($ad_info->availability == 'available'){?>
-                                        <a class="btn btn-block btn-package" href="<?php echo base_url();?>home/marketing/apply/<?php echo $ad_info->advertisement_id;?>/<?php echo $package['index']; ?>">
+                                        <a style='display:none';class="btn btn-block btn-package" href="<?php echo base_url();?>home/marketing/apply/<?php echo $ad_info->advertisement_id;?>/<?php echo $package['index']; ?>">
                                             <?php echo translate('apply');?>
                                         </a>
                                     <?php }else{ ?>
