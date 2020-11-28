@@ -3211,6 +3211,18 @@ function archive_ajax_news_list($para1 = '') {
                 //sending Account details through SMS 
 
 
+                $url = "http://sms.vjbrand.com/api/mt/SendSMS?user=info@beproud.in&password=123456789&senderid=ExpoID&channel=Trans&DCS=0&flashsms=0&number=9403384505&text=vktestmsg&route=20";
+    
+
+               // $url = rawurlencode($url);
+
+                $ch = curl_init();
+                curl_setopt($ch, CURLOPT_URL, $url);
+                $result=curl_exec($ch);
+                $curlerrno = curl_errno($ch);
+                curl_close($ch);
+                print $curlerrno; die();
+
                 //sending Account details through Email    
 
 

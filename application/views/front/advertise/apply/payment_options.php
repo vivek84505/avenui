@@ -2,7 +2,7 @@
     <?php
         if ($p_set == 'ok') {
     ?>
-        <div class="cc-selector col-md-4">
+        <div class="cc-selector col-md-4" style="display:none;">
             <input id="paypal" type="radio" style="display:block;" checked name="payment_type" value="ccavenue"/>
             <label class="drinkcard-cc" style="margin-bottom:0px; width:100%; overflow:hidden; height:200px;" for="ccavenue" onclick="radio_check('paypal')">
                 <img class="image_delay" src="<?php echo img_loading(); ?>" data-src="<?php echo base_url(); ?>uploads/others/ccavenue.png" width="100%" height="100%" style=" text-align-last:center;" alt="<?php echo translate('ccavenue');?>" />
@@ -12,7 +12,7 @@
         }
         if ($s_set == 'ok') {
     ?>
-        <div class="cc-selector col-md-4">
+        <div class="cc-selector col-md-4" style="display:none;" >
             <input id="stripe" type="radio" style="display:block;" name="payment_type" value="payu"/>
             <label class="drinkcard-cc" id="customButtong" style="margin-bottom:0px; width:100%; overflow:hidden; height:200px;" for="stripe" onclick="radio_check('stripe')">
                 <img class="image_delay" src="<?php echo img_loading(); ?>" data-src="<?php echo base_url(); ?>uploads/others/payu-banner.png" width="100%" height="100%" style=" text-align-last:center;" alt="<?php echo translate('stripe');?>" />

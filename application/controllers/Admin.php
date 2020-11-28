@@ -3939,12 +3939,34 @@ class Admin extends CI_Controller {
 
             if ($para1 == 'list') {
              
-                $this->db->select('*');
-                $this->db->from('advertisement_payment');
-                $this->db->join('advertisement', 'advertisement.advertisement_id=advertisement_payment.advertisement_id');
-               $this->db->join('user', 'advertisement_payment.user_id=user.user_id');
-               $this->db->where(['advertisement_payment.payment_type' => 'offline','advertisement_payment.payment_status' => 'due' ]);
-                $page_data['payment_data'] = $this->db->get()->result_array();
+            $all_payment_data = array();
+            $adv_pmt_data = array();
+            $blog_pmt_data = array();
+             
+            $this->db->select('*');
+            $this->db->from('advertisement_payment');
+            $this->db->join('advertisement', 'advertisement.advertisement_id=advertisement_payment.advertisement_id','left');
+            $this->db->join('user', 'advertisement_payment.user_id=user.user_id','left');
+            $this->db->where(['advertisement_payment.payment_type' => 'offline','advertisement_payment.payment_status' => 'due' ]);
+            $this->db->order_by('purchase_datetime','desc');
+            $adv_pmt_data = $this->db->get()->result_array();
+
+                          
+
+
+            $this->db->select('*');
+            $this->db->from('subscription_payment');
+            $this->db->join('subscription', 'subscription.subscription_id=subscription_payment.subscription_payment_id','left');
+            $this->db->join('user', 'subscription_payment.user_id=user.user_id','left');
+            $this->db->where(['subscription_payment.payment_type' => 'offline','subscription_payment.payment_status' => 'due' ]);
+            $this->db->order_by('purchase_datetime','desc');
+            $blog_pmt_data = $this->db->get()->result_array();
+           
+
+            
+            $all_payment_data =  array_merge($adv_pmt_data,$blog_pmt_data);
+            
+            $page_data['payment_data'] = $all_payment_data;
  
             
             $this->load->view('back/admin/offline_payment_list', $page_data);
@@ -3955,9 +3977,127 @@ class Admin extends CI_Controller {
                 
                 $this->db->where('advertisement_payment_id', $para2);
             $res = $this->db->update('advertisement_payment', ['payment_status'=> 'paid','offline_payment_verified'=>1]);
-            print_r($res);
+           
 
             }
+             elseif ($para1 == 'add') {
+                 //getting user data
+                 $user_data = $this->db->select('user_id,CONCAT(firstname," ",lastname) as username')->get('user')->result_array();
+                 
+
+                 //getting adv pkg data
+                 $ad_package_data = $this->db->select("advertisement_id as package_id,package as package_period,
+                    CASE WHEN page_id = 1 THEN CONCAT('Header-', position) 
+                    WHEN page_id = 2 THEN CONCAT('Home-', position)  
+                    WHEN page_id = 3 THEN CONCAT('News Description-', position) 
+                    WHEN page_id = 4 THEN CONCAT('News Category-', position) 
+                    WHEN page_id = 5 THEN CONCAT('News List-', position) 
+                    WHEN page_id = 6 THEN CONCAT('Photo Gallary-', position) 
+                    WHEN page_id = 7 THEN CONCAT('Photo Description-', position) 
+                    WHEN page_id = 8 THEN CONCAT('Video Gallary-', position) 
+                    WHEN page_id = 9 THEN CONCAT('Video Description-', position) 
+                    WHEN page_id = 10 THEN CONCAT('All Reporter-', position) 
+                    WHEN page_id = 11 THEN CONCAT('Reporter Detail-', position)
+                    WHEN page_id = 12 THEN CONCAT('Active News-', position)  
+                    ELSE ''  END as package_details", FALSE)->where('status','ok')->get('advertisement')->result_array();
+                    
+                   $blog_package_data = $this->db->select('subscription_id,name')->get('subscription')->result_array();
+
+
+                   if(!empty($user_data)){
+                    $data['users'] = $user_data;
+                   }
+
+                    if(!empty($ad_package_data)){
+                    $data['ad_package_data'] = $ad_package_data;
+                   }
+
+                   if(!empty($blog_package_data)){
+                    $data['blog_package_data'] = $blog_package_data;
+                   }
+
+
+                 $this->load->view('back/admin/offline_payment_add',$data);
+             }
+             elseif ($para1 == 'do_add') {
+               
+                
+                if($this->input->post('package_type') == 1){
+
+                    if( !empty($this->input->post('user_id'))  ||  !empty($this->input->post('adv_package_id'))  || !empty($this->input->post('pkg_subtype'))  ) {
+
+
+
+                        $user_id = $this->input->post('user_id');
+                        $adv_package_id = $this->input->post('adv_package_id');
+                        $pkg_subtype = $this->input->post('pkg_subtype');
+
+                        $data['user_id']            = $user_id;
+                        $data['advertisement_id']   = $adv_package_id;
+                        $data['package_id']         = $pkg_subtype;
+                        $data['payment_type']       = 'offline';
+                        $data['payment_status']     = 'due';
+                        $data['payment_details']    = 'none';
+                        $data['amount']             = $this->get_adv_package_amount( $adv_package_id, $pkg_subtype,'adv');
+
+                        $package_dates = $this->get_package_dates($adv_package_id,$pkg_subtype);
+
+                        $data['purchase_datetime']  =$package_dates['pkg_start_date'];
+                        $data['expire_timestamp']  =$package_dates['pkg_end_date'];
+
+                         $this->db->insert('advertisement_payment', $data);
+                         $payment_id  = $this->db->insert_id();
+                    }
+                    
+                     
+                    
+                    else{
+                            echo "no enough data";
+                            die();
+                        }
+                }
+                else if($this->input->post('package_type') == 2){
+
+                     if( !empty($this->input->post('user_id'))  ||  !empty($this->input->post('blog_package_id'))   ) {
+
+                            $user_id = $this->input->post('user_id');
+                            $blog_package_id = $this->input->post('blog_package_id');
+                           
+
+                            $data['user_id']            = $user_id;
+                            $data['subscription_id']   = $blog_package_id;                   
+                            $data['payment_type']       = 'offline';
+                            $data['payment_status']     = 'due';
+                            $data['payment_details']    = 'none';
+                            $data['amount']             = $this->get_adv_package_amount( $blog_package_id,' ','blog');
+                            
+                            $date = new DateTime(date("Y-m-d h:i:s"));
+                            $data['purchase_datetime'] =  $date->format('Y-m-d h:i:s');
+
+                            $date->modify('+7 day');
+                            
+                            $data['expire_timestamp'] = $date->format('Y-m-d h:i:s');
+
+                            
+
+                             $this->db->insert('subscription_payment', $data);
+                             $payment_id  = $this->db->insert_id();
+                   
+
+
+
+
+                }
+                 else{
+                            echo "no enough data";
+                            die();
+                        }
+                   
+ 
+
+
+             }
+         }
             else{
                 
                  $page_data['page_name'] = "offline_payment";
@@ -3965,6 +4105,67 @@ class Admin extends CI_Controller {
                   $this->load->view('back/index', $page_data);
             }
            
+
+    }
+
+    function get_adv_package_amount( $package_id, $pkg_subtype = NULL ,$pkg_type){
+        
+        if($pkg_type == 'adv'){
+
+            $data = $this->db->select('package')->from('advertisement')->where('advertisement_id',$package_id)->get()->result_array();
+            $json = json_decode($data[0]['package'],TRUE);
+            $package_amount = 0;
+            foreach ($json as $value) {
+                if($value['index'] == $pkg_subtype){
+                    $package_amount=$value['price'];
+                }
+            }
+            return $package_amount;
+        }
+         else if($pkg_type == 'blog'){
+
+             $data = $this->db->select('(amount) + (post_amount) + (video_amount) + (photo_amount) as amount')->from('subscription')->where('subscription_id',$package_id)->get()->result_array();
+
+            if(!empty($data)){
+
+                 return $data[0]['amount'];
+            }
+            else{
+                return 0;
+            }
+            
+            
+         }
+       
+
+
+
+    }    
+
+     function get_package_dates($advertisement_id,$package_id){
+
+        
+        $date = new DateTime(date("Y-m-d h:i:s"));
+        $date_result ['pkg_start_date'] =  $date->format('Y-m-d h:i:s');
+ 
+
+        $result =$this->db->get_where('advertisement',array('advertisement_id' => $advertisement_id,'status'=>'ok'))->row();
+        
+
+        $package_data = json_decode($result->package , TRUE);
+
+
+        switch($package_id){
+            case 1: $date->modify('+7 day');break;
+            case 2: $date->modify('+30 day');break;
+            case 3: $date->modify('+182 day');break;
+            case 4: $date->modify('+365 day');break;
+        }
+      
+        $date_result ['pkg_end_date'] =  $date->format('Y-m-d h:i:s');
+       
+    
+        return  $date_result;
 
     }
 
