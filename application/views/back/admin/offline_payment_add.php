@@ -22,7 +22,7 @@
             </label>
 
             <div class="col-sm-6">
-                <select name="user_id" id="user_id" class="form-control required" required="true">
+                <select name="user_id" id="user_id" class="form-control required" >
                     <option value=''>Select User</option>
                     <?php
                     foreach ($users as $user) { ?>
@@ -48,13 +48,13 @@
 
                 <div class="col-sm-4">
                     <label for="1">Avertisement</label> 
-                    <input type="radio" id="1" value="1" class="required" name="package_type"  required="true" >
+                    <input type="radio" id="1" value="1" class="required" name="package_type"   >
 
                 </div>
 
                 <div class="col-sm-4">
                     <label for="2" >Blog</label>
-                    <input type="radio" id="2" value="2" class="required" name="package_type"  required="true" >
+                    <input type="radio" id="2" value="2" class="required" name="package_type"    >
                 </div>
 
                 <div  class="clearfix">  </div>  <br>
@@ -156,12 +156,22 @@
           if(value == 1){
             $(".blog_pkg_list").hide();
             $(".adv_pkg_list").show();
+            $("#blog_package_id").removeClass("required");
+
+             $("#adv_package_id").addClass("required");
+             $("#pkg_subtype").addClass("required");
 
           }
           else if(value == 2){
             $(".blog_pkg_list").show();
             $(".adv_pkg_list").hide();
+
+            $("#blog_package_id").addClass("required");
+            
+            $("#adv_package_id").removeClass("required");
+            $("#pkg_subtype").removeClass("required");
           }
+
 
     });
     </script>
