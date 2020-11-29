@@ -1124,6 +1124,13 @@ img {
   max-width: 100%;
   height: auto;
 }
+
+@media (min-width: 768px) {
+  .img-responsive {
+    min-height: 40px;
+  }
+}
+
 .img-rounded {
   border-radius: 6px;
 }
@@ -1300,6 +1307,8 @@ p {
     font-size: 21px;
   }
 }
+
+
 small,
 .small {
   font-size: 85%;
