@@ -17,7 +17,7 @@
         <tbody >
             <?php
             //  echo "<pre>";
-            //  print_r($payment_data); die();
+            // print_r($payment_data); die();
 
             $i = 0;
             foreach ($payment_data as $row) {
@@ -71,13 +71,29 @@
                     </td>
 
                     <td class="text-right">
+                        <?php
+
+                        if(isset($row['subscription_payment_id'])){
+                            $current_package_id = $row['subscription_payment_id'];
+                            $pkg_type = 2;
+                        }
+                        else if(isset($row['advertisement_payment_id'])){
+                            $current_package_id = $row['advertisement_payment_id'];
+                             $pkg_type = 1;
+                        }  
+
+
+                        ?>
                         
-                        
-                        <a onclick="verify_offline_payment('<?php echo $row['advertisement_payment_id']; ?>', '<?php echo translate('Have_you_verified_offline_payment?'); ?>')" class="btn btn-mint btn-xs btn-labeled fa fa-user" data-toggle="tooltip" 
-                           data-original-title="Delete" data-container="body">
-                               <?php echo translate('verify_payment'); ?>
-                        </a>
+                        <button class="btn btn-info btn-labeled fa fa-plus-circle pull-right mar-rgt" 
+                                onclick="ajax_modal('verify_offline_payment', '<?php echo translate('verify_offline_payment'); ?>', '<?php echo translate('successfully_verified!'); ?>', 'offline_payment_verify_form', '<?php echo $current_package_id."-".$pkg_type; ?>')">
+                                    <?php echo translate('verify_offline_payment'); ?>
+                         </button>
+
                     </td>
+
+
+                    
                 </tr>
                 <?php
             }

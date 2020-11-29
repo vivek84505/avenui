@@ -3980,6 +3980,51 @@ class Admin extends CI_Controller {
            
 
             }
+            else if ($para1 == 'verify_offline_payment') {  
+            
+
+                $pkg_details = explode('-',$para2);
+                $data['package_id'] =  $pkg_details[0];
+                $data['pkg_type'] =  $pkg_details[1];
+
+                $this->load->view('back/admin/offline_payment_verify_form',$data);
+
+            }
+
+            else if ($para1 == 'do_verify_offline_payment') {  
+            
+                $package_id = $this->input->post('package_id');
+                $pkg_type = $this->input->post('pkg_type');
+                $offline_payment_comment = $this->input->post('offline_payment_comment');
+
+                if($pkg_type == 1){
+                    
+                    $data = [
+                        'offline_payment_verified' => 1,
+                        'offline_payment_comment' => $offline_payment_comment,
+                        'payment_status' => 'paid'
+
+                        ];
+                    $this->db->where('advertisement_payment_id',$package_id);  
+                    $this->db->update('advertisement_payment',$data);
+
+                }
+                else if ($pkg_type == 2){
+
+                      $data = [
+                        'offline_payment_verified' => 1,
+                        'offline_payment_comment' => $offline_payment_comment,
+                        'payment_status' => 'paid'
+
+                        ];
+                    $this->db->where('subscription_payment_id',$package_id);  
+                    $this->db->update('subscription_payment',$data);
+                }
+                 
+
+            }
+
+            
              elseif ($para1 == 'add') {
                  //getting user data
                  $user_data = $this->db->select('user_id,CONCAT(firstname," ",lastname) as username')->get('user')->result_array();
