@@ -17,7 +17,7 @@
                         if(!empty($result_details)){
                             foreach ($result_details as $row) { ?>
                                 <a href="<?php echo $row['url']; ?>" target="_blank">
-                                    <div class="img-bg img-responsive image_delay" style="background-image: url(<?php echo img_loading(); ?>);" data-src="<?php echo base_url(); ?>uploads/default_banner/<?php echo $row['img']; ?>" alt="advertise" ></div>
+                                    <div class="img-bg img-responsive image_delay" style="height:60px;background-image: url(<?php echo img_loading(); ?>);" data-src="<?php echo base_url(); ?>uploads/default_banner/<?php echo $row['img']; ?>" alt="advertise" ></div>
                                 </a>
                             <?php
                             }
@@ -25,7 +25,7 @@
                         else{
                             foreach($default_post as $post){ ?>
                                 <a href="<?php echo $post['url'];?>">
-                                    <div class="img-bg img-responsive image_delay" style=" background-image: url(<?php echo img_loading(); ?>);" data-src="<?php echo base_url(); ?>uploads/default_banner/<?php echo $post['img'];?>" alt="advertise" ></div>
+                                    <div class="img-bg img-responsive image_delay" style="height:60px;background-image: url(<?php echo img_loading(); ?>);" data-src="<?php echo base_url(); ?>uploads/default_banner/<?php echo $post['img'];?>" alt="advertise" ></div>
                                 </a>
                             <?php
                             }
@@ -34,7 +34,7 @@
                     else{
                         foreach($default_post as $post){ ?>
                             <a href="<?php echo $post['url'];?>">
-                                <div class="img-bg img-responsive image_delay" style=" background-image: url(<?php echo img_loading(); ?>);" data-src="<?php echo base_url(); ?>uploads/default_banner/<?php echo $post['img'];?>" alt="advertise" ></div>
+                                <div class="img-bg img-responsive image_delay" style="height:60px;background-image: url(<?php echo img_loading(); ?>);" data-src="<?php echo base_url(); ?>uploads/default_banner/<?php echo $post['img'];?>" alt="advertise" ></div>
                             </a>
                         <?php
                         }
@@ -43,7 +43,7 @@
                 else {
                     foreach($default_post as $post){ ?>
                         <a href="<?php echo $post['url'];?>">
-                            <div class="img-bg img-responsive image_delay" style=" background-image: url(<?php echo img_loading(); ?>);" data-src="<?php echo base_url(); ?>uploads/default_banner/<?php echo $post['img'];?>" alt="advertise" ></div>
+                            <div class="img-bg img-responsive image_delay" style="height:60px;background-image: url(<?php echo img_loading(); ?>);" data-src="<?php echo base_url(); ?>uploads/default_banner/<?php echo $post['img'];?>" alt="advertise" ></div>
                         </a>
                     <?php
                     }
