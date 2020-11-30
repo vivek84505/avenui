@@ -255,6 +255,25 @@
         margin-top: -15px;
     }
 }
+
+.img-responsive
+{
+    height:60px!important;
+
+}
+
+
+@media (max-width: 600px) {
+    .img-responsive
+{
+        height: 40px!important;
+        
+    }
+}
+
+
+
+
 .file .imgInp{
     margin-bottom: 15px;
 }
