@@ -259,13 +259,14 @@
  
 
 
-@media (max-width: 600px) {
+@media (min-width: 600px) {
     .top-header-ad
 {
         height: 40px!important;
         
     }
 }
+
 
 
 
