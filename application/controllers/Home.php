@@ -3013,15 +3013,15 @@ function archive_ajax_news_list($para1 = '') {
 
         echo $url; die();*/
 
-        $url = "http://sms.vjbrand.com/api/mt/SendSMS?user=info@beproud.in&password=123456789&senderid=ExpoID&channel=Trans&DCS=0&flashsms=0&number=9322975254&text=test message&route=20";              
+        // $url = "http://sms.vjbrand.com/api/mt/SendSMS?user=info@beproud.in&password=123456789&senderid=ExpoID&channel=Trans&DCS=0&flashsms=0&number=9322975254&text=test message&route=20";              
               
 
-        $ch = curl_init($url);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $curl_scraped_page = curl_exec($ch);
-        $arr = json_decode($curl_scraped_page,true);
-        curl_close($ch);
-        print_r($arr['ErrorMessage']);
+        // $ch = curl_init($url);
+        // curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        // $curl_scraped_page = curl_exec($ch);
+        // $arr = json_decode($curl_scraped_page,true);
+        // curl_close($ch);
+        // print_r($arr['ErrorMessage']);
 
 
                            
@@ -3436,7 +3436,7 @@ function archive_ajax_news_list($para1 = '') {
             $page_data['asset_page'] = "advertise";
             $page_data['page_title'] = translate('apply_for_advertise');
             $page_data['pages'] = $this->db->get('ad_page')->result_array();
-            $this->load->view('front/index', $page_data);
+           // $this->load->view('front/index', $page_data);
         }
     }
     /* FUNCTION: Verify paypal payment by IPN*/
