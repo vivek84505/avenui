@@ -3389,7 +3389,7 @@ function archive_ajax_news_list($para1 = '') {
             $page_data['asset_page'] = "advertise";
             $page_data['page_title'] = translate('apply_for_advertise');
             $page_data['pages'] = $this->db->get('ad_page')->result_array();
-           // $this->load->view('front/index', $page_data);
+            $this->load->view('front/index', $page_data);
         }
     }
     /* FUNCTION: Verify paypal payment by IPN*/
