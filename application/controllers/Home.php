@@ -3131,11 +3131,7 @@ function archive_ajax_news_list($para1 = '') {
     }
 
     function marketing($para1='',$para2='',$para3=''){
-
-       
-
         if ($this->session->userdata('user_login') !== "yes") {
-
             redirect(base_url() . 'home', 'refresh');
         }
         if($para1 == 'page'){
@@ -3169,8 +3165,7 @@ function archive_ajax_news_list($para1 = '') {
             $page_data['system_name'] = $this->Crud_model->get_settings_value('general_settings','system_name','value');
             $this->load->view('front/advertise/apply/payment_options',$page_data);
         }
-        else if($para1 == 'payment'){    
-
+        else if($para1 == 'payment'){      
             $user_id            = $this->session->userdata('user_id');
             $advertisement_id   = $this->input->post('advertisement_id');
             $package_id         = $this->input->post('package');
@@ -3183,11 +3178,6 @@ function archive_ajax_news_list($para1 = '') {
             }
 
              if ($this->input->post('payment_type') == 'offline') {
-
-            
-              
-            
-                  
                
                 $data['user_id']            = $user_id;
                 $data['advertisement_id']   = $advertisement_id;
@@ -3218,54 +3208,24 @@ function archive_ajax_news_list($para1 = '') {
                 $data['billing_tel']  = $userdata->phone;
                 $data['billing_email']  = $userdata->email;
                   
-                //sending Package initiated info through SMS 
-                $message = "SMS sent from code";
-                $usermobile = ltrim($userdata->phone,'+');
-
-
-
-
-                $url = "http://sms.vjbrand.com/api/mt/SendSMS?user=info@beproud.in&password=123456789&senderid=ExpoID&channel=Trans&DCS=0&flashsms=0&number=".$usermobile."&text=".$message."&route=20";
-               
-
-                $url = rawurlencode($url);
-
+                //sending Account details through SMS 
+                 $message = 'SMS sent from code';
+                 $usermobile = ltrim($userdata->phone,'+');
                  
-                $curl = curl_init();              
-                curl_setopt($curl, CURLOPT_URL, $url);
-                curl_setopt($curl, CURLOPT_RETURNTRANSFER, TRUE);
-                curl_setopt($curl, CURLOPT_PROXYPORT, "80");
-                curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
-                $result = curl_exec($curl);
-                
-                // echo $result; exit;
-                 
-                
  
+                $url = 'http://sms.vjbrand.com/api/mt/SendSMS?user=info@beproud.in&password=123456789&senderid=ExpoID&channel=Trans&DCS=0&flashsms=0&number='
+                . urlencode($usermobile)
+                . '&route=20&from=SMSACT&text='
+                . urlencode($message); 
 
-              
+                //$url = rawurlencode($url);
 
-
-                // $url = rawurlencode($url);
-                //     $ch = curl_init();
-                //     curl_setopt($ch, CURLOPT_URL, $url);
-                //     $result=curl_exec($ch);
-                //     $curlerrno = curl_errno($ch);
-                //     curl_close($ch);
-                //     print $curlerrno;
-
-
-
-                // echo $url;
-
-                // $url = rawurlencode($url);
- 
-                // $ch = curl_init();
-                // curl_setopt($ch, CURLOPT_URL, $url);
-                // $result=curl_exec($ch);
-                // $curlerrno = curl_errno($ch);
-                // curl_close($ch);
-                // print_r($result);  
+                $ch = curl_init();
+                curl_setopt($ch, CURLOPT_URL, $url);
+                $result=curl_exec($ch);
+                $curlerrno = curl_errno($ch);
+                curl_close($ch);
+                
 
                 //sending Account details through Email    
 
@@ -3480,7 +3440,7 @@ function archive_ajax_news_list($para1 = '') {
             $page_data['asset_page'] = "advertise";
             $page_data['page_title'] = translate('apply_for_advertise');
             $page_data['pages'] = $this->db->get('ad_page')->result_array();
-            $this->load->view('front/index', $page_data);
+           // $this->load->view('front/index', $page_data);
         }
     }
     /* FUNCTION: Verify paypal payment by IPN*/
