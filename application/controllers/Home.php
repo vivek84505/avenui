@@ -2976,56 +2976,7 @@ function archive_ajax_news_list($para1 = '') {
                             
                             //sending SMS to newly registered user
 
-
-// $url = "http://sms.vjbrand.com/api/mt/SendSMS?user=info@beproud.in&password=123456789
-// &senderid=WEBSMS&APIKey=bhBv6liFJUm7Tr5ky6nlRA&channel=Promo&DCS=0&flashsms=0&number=9403384505&text=test message&route=##";
-    
-                                       
-
-                
-                 
-
-            // $username="info@beproud.in"; //use your sms api username
-            // $pass    =     "123456789";  //enter your password
-            // $dest_mobileno   = "8459814426";//reciever 10 digit number (use comma (,) for multiple users. 
-            // $senderid    =     "sender name";//use your sms api sender id
-            // $content = 'Test Message Text';     
-            // $url = "http://login.blesssms.com/api/mt/SendSMS?user=".$username."&password=".$pass."&senderid=".$senderid."&channel=Trans&DCS=0&flashsms=0&number=".$dest_mobileno."&text=".$content."&route=20";
-
  
-       /*       $url = rawurlencode($url);
-
-            $ch = curl_init();
-            curl_setopt($ch, CURLOPT_URL, $url);
-            $result=curl_exec($ch);
-            $curlerrno = curl_errno($ch);
-            curl_close($ch);
-            print $curlerrno;
-
-
-        $username='info@beproud.in';
-        $password ='123456789';
-        $sender ='ExpoID';
-        $route =20;
-        $number='9322975254';
-        $message="Test message from Vivek";
-        $url="http://sms.vjbrand.com/api/mt/SendSMS?user=".urlencode($username)."&password=".urlencode($password)."&senderid=".urlencode($sender)."&channel=Trans&DCS=0&flashsms=0&number=".urlencode($number)."&text=".urlencode($message)."&route=".$route;
-
-        echo $url; die();*/
-
-       //  $url = "http://sms.vjbrand.com/api/mt/SendSMS?user=info@beproud.in&password=123456789&senderid=ExpoID&channel=Trans&DCS=0&flashsms=0&number=9322975254&text=test message&route=20";              
-              
-
-       //  $ch = curl_init($url);
-       //  curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-       //  $curl_scraped_page = curl_exec($ch);
-       //  $arr = json_decode($curl_scraped_page,true);
-       //  curl_close($ch);
-       // // print_r($arr['ErrorMessage']);
-
-
-                           
-
 
                             $msg = 'done';
                             // if (@$this->Email_model->account_opening('user', $data['email'], $password) == false) {
