@@ -3021,7 +3021,7 @@ function archive_ajax_news_list($para1 = '') {
         $curl_scraped_page = curl_exec($ch);
         $arr = json_decode($curl_scraped_page,true);
         curl_close($ch);
-        print_r($arr['ErrorMessage']);
+       // print_r($arr['ErrorMessage']);
 
 
                            
