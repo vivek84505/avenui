@@ -3209,9 +3209,9 @@ function archive_ajax_news_list($para1 = '') {
                 $data['billing_email']  = $userdata->email;
                   
                 //sending Account details through SMS 
-                 $message = 'SMS sent from code';
+                 $message = 'Your package purchase has been initiated kindly check your mail and complete your transaction. BeeBliss.';
                  $usermobile = ltrim($userdata->phone,'+');
-                 
+
  
                 $url = 'http://sms.vjbrand.com/api/mt/SendSMS?user=info@beproud.in&password=123456789&senderid=ExpoID&channel=Trans&DCS=0&flashsms=0&number='
                 . urlencode($usermobile)
