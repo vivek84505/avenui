@@ -3218,12 +3218,10 @@ function archive_ajax_news_list($para1 = '') {
                 . '&route=20&from=SMSACT&text='
                 . urlencode($message); 
 
-                //$url = rawurlencode($url);
-
+             
                 $ch = curl_init();
                 curl_setopt($ch, CURLOPT_URL, $url);
-                $result=curl_exec($ch);
-                $curlerrno = curl_errno($ch);
+                curl_exec($ch);                
                 curl_close($ch);
                 
 
