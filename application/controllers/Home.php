@@ -3180,6 +3180,12 @@ function archive_ajax_news_list($para1 = '') {
 
                 //sending Account details through Email    
 
+                $this->load->library('email'); // Note: no $config param needed
+                $this->email->from('_mainaccount@avenui.net', '_mainaccount@avenui.net');
+                $this->email->to($userdata->email);
+                $this->email->subject('Test email from CI and Gmail');
+                $this->email->message('This is a test.');
+                $this->email->send();
 
 
                 $this->load->view('front/offline_payment_thankyou',$data);
