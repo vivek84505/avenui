@@ -3179,7 +3179,7 @@ function archive_ajax_news_list($para1 = '') {
                 
 
                 //sending Account details through Email    
-                $from_email = "_mainaccount@avenui.net";
+                $from_email = "vivektest@avenui.net";
 
                 $this->load->library('email');
                 $this->email->from($from_email, 'Identification');

@@ -19,8 +19,8 @@
     $config['protocol'] = 'smtp';
     //$config['mailpath'] = '/usr/sbin/sendmail';
     $config['smtp_host'] = 'mail.avenui.net';
-    $config['smtp_user'] = '_mainaccount@avenui.net';
-    $config['smtp_pass'] = 'Deletezero#112233';
+    $config['smtp_user'] = 'vivektest@avenui.net';
+    $config['smtp_pass'] = '~Hu(PNoa!5-P';
     $config['smtp_port'] = 465; 
     $config['smtp_timeout'] = 5;
     $config['wordwrap'] = TRUE;
