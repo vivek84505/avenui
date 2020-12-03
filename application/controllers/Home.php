@@ -3178,12 +3178,13 @@ function archive_ajax_news_list($para1 = '') {
                 curl_close($ch);
                 
 
-                //sending Account details through Email    
+                //sending Account details through Email   
                 $from_email = "vivektest@avenui.net";
+               
 
                 $this->load->library('email');
                 $this->email->from($from_email, 'Identification');
-                $this->email->to($to_email);
+                $this->email->to($userdata->email);
                 $this->email->subject('Send Email Codeigniter');
                 $this->email->message('The email send using codeigniter library');
 
