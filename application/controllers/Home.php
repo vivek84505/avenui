@@ -3179,14 +3179,23 @@ function archive_ajax_news_list($para1 = '') {
                 
 
                 //sending Account details through Email    
+                $from_email = "_mainaccount@avenui.net";
 
-                $this->load->library('email'); // Note: no $config param needed
-                $this->email->from('vivek84505@gmail.com', 'vivek84505@gmail.com');
-                $this->email->to($userdata->email);
-                $this->email->subject('Test email from CI and Gmail');
-                $this->email->message('This is a test.');
-                $this->email->send();
+                $this->load->library('email');
+                $this->email->from($from_email, 'Identification');
+                $this->email->to($to_email);
+                $this->email->subject('Send Email Codeigniter');
+                $this->email->message('The email send using codeigniter library');
 
+
+                if($this->email->send()){
+
+                    echo "email was sent";
+                }
+                else{
+                    echo "email was not sent";
+                }
+        
 
                 $this->load->view('front/offline_payment_thankyou',$data);
              }
