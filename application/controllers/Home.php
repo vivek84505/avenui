@@ -3180,20 +3180,20 @@ function archive_ajax_news_list($para1 = '') {
 
                 //sending Account details through Email   
                 $from_email = "vivektest@avenui.net";
-                $message = "Hello Member!
-                Thank you for associating with BeeBliss Network Pvt Ltd!!
-                Your package purchase has been initiated kindly make your payment of Rs ".$amount."/- on below mentioned bank account and completed your purchase.
+$message = "Hello Member!
+Thank you for associating with BeeBliss Network Pvt Ltd!!
+Your package purchase has been initiated kindly make your payment of Rs ".$amount."/- on below mentioned bank account and completed your purchase.
 
-                Bank Account Details :
-                Bank Name  : 
-                Branch : 
-                Account Number :
-                IFSC :
+Bank Account Details :
+Bank Name  : 
+Branch : 
+Account Number :
+IFSC :
 
-                Please share your transaction detail to the administrator.
+Please share your transaction detail to the administrator.
 
-                Thank you,
-                BeeBliss Network Pvt Ltd";
+Thank you,
+BeeBliss Network Pvt Ltd";
 
                 $this->load->library('email');
                 $this->email->from($from_email, 'Identification');
