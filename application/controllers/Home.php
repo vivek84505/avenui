@@ -3180,22 +3180,38 @@ function archive_ajax_news_list($para1 = '') {
 
                 //sending Account details through Email   
                 $from_email = "vivektest@avenui.net";
-               
+                $message = "Hello Member!
+                Thank you for associating with BeeBliss Network Pvt Ltd!!
+                Your package purchase has been initiated kindly make your payment of Rs ".$amount."/- on below mentioned bank account and completed your purchase.
+
+                Bank Account Details :
+                Bank Name  : 
+                Branch : 
+                Account Number :
+                IFSC :
+
+                Please share your transaction detail to the administrator.
+
+                Thank you,
+                BeeBliss Network Pvt Ltd";
 
                 $this->load->library('email');
                 $this->email->from($from_email, 'Identification');
                 $this->email->to($userdata->email);
-                $this->email->subject('Send Email Codeigniter');
-                $this->email->message('The email send using codeigniter library');
+                $this->email->subject('BeeBliss Network Pvt Ltd');
+                $this->email->message($message);
 
 
-                // if($this->email->send()){
+                if($this->email->send()){
 
-                //     echo "email was sent";
-                // }
-                // else{
-                //     echo "email was not sent";
-                // }
+                    echo "email was sent";
+                }
+                else{
+
+                      print_r($this->email->print_debugger());
+
+                    echo "email was not sent";
+                }
         
 
                 $this->load->view('front/offline_payment_thankyou',$data);
