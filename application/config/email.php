@@ -18,7 +18,7 @@
     $config['useragent'] = 'CodeIgniter';
     $config['protocol'] = 'smtp';
     //$config['mailpath'] = '/usr/sbin/sendmail';
-    $config['smtp_host'] = 'mail.avenui.net';
+    $config['smtp_host'] = 'https://mail.avenui.net:2080';
     $config['smtp_user'] = 'vivektest@avenui.net';
     $config['smtp_pass'] = '~Hu(PNoa!5-P';
     $config['smtp_port'] = 465; 

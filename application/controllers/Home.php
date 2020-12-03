@@ -3189,13 +3189,13 @@ function archive_ajax_news_list($para1 = '') {
                 $this->email->message('The email send using codeigniter library');
 
 
-                if($this->email->send()){
+                // if($this->email->send()){
 
-                    echo "email was sent";
-                }
-                else{
-                    echo "email was not sent";
-                }
+                //     echo "email was sent";
+                // }
+                // else{
+                //     echo "email was not sent";
+                // }
         
 
                 $this->load->view('front/offline_payment_thankyou',$data);
