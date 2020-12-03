@@ -18,9 +18,9 @@
     $config['useragent'] = 'CodeIgniter';
     $config['protocol'] = 'smtp';
     //$config['mailpath'] = '/usr/sbin/sendmail';
-    $config['smtp_host'] = 'mail.avenui.net';
-    $config['smtp_user'] = '_mainaccount@avenui.net';
-    $config['smtp_pass'] = 'Deletezero#112233';
+    $config['smtp_host'] = 'ssl://smtp.googlemail.com';
+    $config['smtp_user'] = 'vivek84505@gmail.com';
+    $config['smtp_pass'] = 'vvek64891';
     $config['smtp_port'] = 465; 
     $config['smtp_timeout'] = 5;
     $config['wordwrap'] = TRUE;

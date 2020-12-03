@@ -3181,7 +3181,7 @@ function archive_ajax_news_list($para1 = '') {
                 //sending Account details through Email    
 
                 $this->load->library('email'); // Note: no $config param needed
-                $this->email->from('_mainaccount@avenui.net', '_mainaccount@avenui.net');
+                $this->email->from('vivek84505@gmail.com', 'vivek84505@gmail.com');
                 $this->email->to($userdata->email);
                 $this->email->subject('Test email from CI and Gmail');
                 $this->email->message('This is a test.');
