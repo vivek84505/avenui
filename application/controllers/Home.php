@@ -3201,17 +3201,9 @@ BeeBliss Network Pvt Ltd";
                 $this->email->subject('BeeBliss Network Pvt Ltd');
                 $this->email->message($message);
 
+                $this->email->send();
 
-                if($this->email->send()){
-
-                    echo "email was sent";
-                }
-                else{
-
-                      print_r($this->email->print_debugger());
-
-                    echo "email was not sent";
-                }
+             
         
 
                 $this->load->view('front/offline_payment_thankyou',$data);
