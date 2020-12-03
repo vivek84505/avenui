@@ -14,11 +14,10 @@
     //     $config['smtp_pass'] = $CI->db->get_where('general_settings',array('type'=>'smtp_pass'))->row()->value;
     // }
 
-    $configs = array(
+    $config = array(
     'protocol'  =>  'smtp',
     'smtp_host' =>  'ssl://mail.avenui.net',
     'smtp_user' =>  'vivektest@avenui.net',
     'smtp_pass' =>  '~Hu(PNoa!5-P',
     'smtp_port' =>  '465'
 );
-    
