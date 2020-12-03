@@ -18,14 +18,14 @@
     $config['useragent'] = 'CodeIgniter';
     $config['protocol'] = 'smtp';
     //$config['mailpath'] = '/usr/sbin/sendmail';
-    $config['smtp_host'] = 'https://mail.avenui.net:2080';
+    $config['smtp_host'] = 'ssl://mail.avenui.net';
     $config['smtp_user'] = 'vivektest@avenui.net';
     $config['smtp_pass'] = '~Hu(PNoa!5-P';
     $config['smtp_port'] = 465; 
     $config['smtp_timeout'] = 5;
     $config['wordwrap'] = TRUE;
     $config['wrapchars'] = 76;
-    $config['mailtype'] = 'html';
+    $config['mailtype'] = 'text/plain';
     $config['charset'] = 'utf-8';
     $config['validate'] = FALSE;
     $config['priority'] = 3;
