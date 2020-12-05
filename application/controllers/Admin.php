@@ -4121,7 +4121,7 @@ class Admin extends CI_Controller {
                             $date = new DateTime(date("Y-m-d h:i:s"));
                             $data['purchase_datetime'] =  $date->format('Y-m-d h:i:s');
 
-                            $date->modify('+7 day');
+                            $date->modify('+30 day');
                             
                             $data['expire_timestamp'] = $date->format('Y-m-d h:i:s');
 
@@ -4131,19 +4131,13 @@ class Admin extends CI_Controller {
                              $payment_id  = $this->db->insert_id();
                    
 
-
-
-
                 }
                  else{
                             echo "no enough data";
                             die();
                         }
                    
- 
-
-
-             }
+              }
          }
             else{
                 
