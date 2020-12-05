@@ -23,6 +23,32 @@ class Admin extends CI_Controller {
         }
     }
 
+    /* ------- Cron Job for Ads and Blog package expiry ------- */
+
+    function cron_pkg_expire(){
+    
+        $today = date('Y-m-d');
+
+        //Advertise package expire query
+        $data['is_expired'] = 1;
+        $expire_where = ['offline_payment_verified'=>1 ,'payment_status'=>'paid','is_expired'=> 0];
+        
+        $adv_packages = $this->db->where($expire_where)
+                        ->where('date(expire_timestamp)',$today)
+                        ->update('advertisement_payment',$data);
+        
+        //Blog package expire query
+
+        $blog_packages = $this->db->where($expire_where)
+                        ->where('date(expire_timestamp)',$today)
+                        ->update('subscription_payment',$data);
+                        
+
+
+    }
+
+
+
     /* ------- NEWS CATEGORY Add, Edit, View, Delete ------- */
 
     function category($para1 = '', $para2 = '') {
