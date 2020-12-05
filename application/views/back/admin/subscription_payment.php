@@ -15,20 +15,35 @@
                                     <tr>
                                         <th><?php echo translate('no'); ?></th>
                                         <th><?php echo translate('user_name'); ?></th>
+                                        <th><?php echo translate('package_name'); ?></th>
 
                                         <th><?php echo translate('amount'); ?></th>
                                         <th><?php echo translate('payment_method'); ?></th>
                                         <th><?php echo translate('payment_status'); ?></th>
+                                        <th><?php echo translate('validity'); ?></th>
 
                                         <th class="text-right"><?php echo translate('options'); ?></th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php
+
+                                        $payment_data = $this->db->select('subscription.name,user.firstname,user.lastname,subscription_payment.subscription_payment_id,subscription_payment.payment_status,subscription_payment.payment_type,subscription_payment.payment_details,subscription_payment.amount,subscription_payment.purchase_datetime,subscription_payment.is_expired,subscription_payment.expire_timestamp,subscription_payment.offline_payment_comment,
+                                            subscription_payment.offline_payment_verified')
+                                        ->join('user','user.user_id = subscription_payment.user_id','left')
+                                        ->join('subscription','subscription.subscription_id  = subscription_payment.subscription_payment_id','left')
+                                        ->get('subscription_payment')->result_array();
+
+                                        //echo "<pre>";
+                                        //print_r($payment_data);
+
+
+
+
                                         $i = 0;
                                         $this->db->order_by('subscription_payment_id','desc');
                                         $payment_list   = $this->db->get('subscription_payment')->result_array();
-                                        foreach ($payment_list as $row) {
+                                        foreach ($payment_data as $row) {
                                             $i++;
 
                                     ?>
@@ -36,16 +51,25 @@
                                             <td><?php echo $i; ?></td>
                                             <td>
                                                 <?php
-                                                    $user = $this->db->get_where('user',array('user_id' => $row['user_id']))->row();
-                                                    if($user != null)
-                                                        echo $user->firstname;
+                                                   
+                                                        echo $row['firstname'].' '.$row['lastname'];
                                                 ?>
                                             </td>
-                                            <td><?php echo currency('','def').$row['amount'];?></td>
+                                            <td><?php echo $row['name'];?></td>
+                                            <td><?php echo $row['amount'];?></td>
                                             <td><?php echo $row['payment_type'];?></td>
                                             <td>
                                                 <label class="label <?php if($row['payment_status'] == 'paid'){ echo 'label-success'; }else{ echo 'label-danger';} ?>">
                                                     <?php echo $row['payment_status'];?>
+                                                </label>
+                                            </td>
+
+                                            <td>
+                                                <label class="label <?php if($row['is_expired'] == 0){ echo 'label-success'; }else{ echo 'label-danger';} ?>">
+                                                
+                                                    <?php echo ($row['is_expired']) ? "Expired" : "Valid";?>
+                                                
+
                                                 </label>
                                             </td>
 

@@ -6,12 +6,12 @@
                 
                 <th><?php echo translate('name'); ?></th>
                 <th><?php echo translate('contact'); ?></th>
-                <th><?php echo translate('payment_type'); ?></th>                
                 <th><?php echo translate('payment_date'); ?></th>
-                <th><?php echo translate('Payment_Verification'); ?></th>
+                <th><?php echo translate('Payment_Details'); ?></th>
+                <th><?php echo translate('Amount'); ?></th>
                 <th><?php echo translate('Package'); ?></th>
                  
-                <th class="text-right"><?php echo translate('options'); ?></th>
+                <th class="text-right"><?php echo translate('Payment status'); ?></th>
             </tr>
         </thead>				
         <tbody >
@@ -36,12 +36,18 @@
                         ?>
                     </td>
                     <td><?php echo $row['phone']; ?></td>
-                    <td><?php echo $row['payment_type']; ?></td>                  
                     <td><?php echo  $row['purchase_datetime']; ?></td>
                     
                     <td><?php 
 
-                            echo ($row['offline_payment_verified']) ? "Verified":"Not Verified";
+                            echo $row['offline_payment_comment'];
+
+                         ?>
+                    </td>
+
+                     <td><?php 
+
+                            echo $row['amount'];
 
                          ?>
                     </td>
@@ -85,10 +91,27 @@
 
                         ?>
                         
-                        <button class="btn btn-info btn-labeled fa fa-plus-circle pull-right mar-rgt" 
+                        <?php
+                        if($row['offline_payment_verified'] == 0){ ?>
+
+                            <button style="width:160px;" class="btn btn-info   pull-right mar-rgt" 
                                 onclick="ajax_modal('verify_offline_payment', '<?php echo translate('verify_offline_payment'); ?>', '<?php echo translate('successfully_verified!'); ?>', 'offline_payment_verify_form', '<?php echo $current_package_id."-".$pkg_type; ?>')">
                                     <?php echo translate('verify_offline_payment'); ?>
                          </button>
+
+                        <?php }
+                        else{ ?>
+
+                            <button style="width:160px;" class="btn btn-success   pull-right mar-rgt">Verified</button>
+                         
+                        <?php }
+
+                        ?>                        
+                        
+
+                             
+
+                         
 
                     </td>
 

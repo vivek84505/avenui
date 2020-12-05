@@ -128,6 +128,18 @@
                     
                 </div>
 
+                 <label class="col-sm-4 control-label" for="demo-hor-1">
+                <?php echo translate('select_package_start_date'); ?>
+            </label>
+
+            <div class="col-sm-6">
+                <input type="date" name="pkg_start_date" id="pkg_start_date" class="form-control required " >
+            </div>
+
+
+                <div  class="clearfix">
+
+
             </div>
 
 

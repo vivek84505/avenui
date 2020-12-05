@@ -52,9 +52,9 @@
                                                 </label>
                                             </td>
                                             <td>
-                                                <label class="label <?php if($row['expire'] == 'no'){ echo 'label-success';}else{echo 'label-danger';}?>">
+                                                <label class="label <?php if($row['is_expired'] == 0 ){ echo 'label-success';}else{echo 'label-danger';}?>">
                                                     <?php
-                                                        if($row['expire'] == 'no'){
+                                                        if($row['is_expired'] == 0 ){
                                                             echo translate('valid');
                                                         }
                                                         else echo translate('expired');

@@ -3947,7 +3947,7 @@ class Admin extends CI_Controller {
             $this->db->from('advertisement_payment');
             $this->db->join('advertisement', 'advertisement.advertisement_id=advertisement_payment.advertisement_id','left');
             $this->db->join('user', 'advertisement_payment.user_id=user.user_id','left');
-            $this->db->where(['advertisement_payment.payment_type' => 'offline','advertisement_payment.payment_status' => 'due' ]);
+            $this->db->where(['advertisement_payment.payment_type' => 'offline' ]);
             $this->db->order_by('purchase_datetime','desc');
             $adv_pmt_data = $this->db->get()->result_array();
 
@@ -3958,7 +3958,7 @@ class Admin extends CI_Controller {
             $this->db->from('subscription_payment');
             $this->db->join('subscription', 'subscription.subscription_id=subscription_payment.subscription_payment_id','left');
             $this->db->join('user', 'subscription_payment.user_id=user.user_id','left');
-            $this->db->where(['subscription_payment.payment_type' => 'offline','subscription_payment.payment_status' => 'due' ]);
+            $this->db->where(['subscription_payment.payment_type' => 'offline' ]);
             $this->db->order_by('purchase_datetime','desc');
             $blog_pmt_data = $this->db->get()->result_array();
            
@@ -4069,10 +4069,12 @@ class Admin extends CI_Controller {
                 
                 if($this->input->post('package_type') == 1){
 
-                    if( !empty($this->input->post('user_id'))  ||  !empty($this->input->post('adv_package_id'))  || !empty($this->input->post('pkg_subtype'))  ) {
+                    if( !empty($this->input->post('pkg_start_date')) || !empty($this->input->post('user_id'))  ||  !empty($this->input->post('adv_package_id'))  || !empty($this->input->post('pkg_subtype'))  ) {
 
 
 
+                        $pkg_start_date = $this->input->post('pkg_start_date');
+                        
                         $user_id = $this->input->post('user_id');
                         $adv_package_id = $this->input->post('adv_package_id');
                         $pkg_subtype = $this->input->post('pkg_subtype');
@@ -4085,7 +4087,7 @@ class Admin extends CI_Controller {
                         $data['payment_details']    = 'none';
                         $data['amount']             = $this->get_adv_package_amount( $adv_package_id, $pkg_subtype,'adv');
 
-                        $package_dates = $this->get_package_dates($adv_package_id,$pkg_subtype);
+                        $package_dates = $this->get_package_dates($pkg_start_date,$adv_package_id,$pkg_subtype);
 
                         $data['purchase_datetime']  =$package_dates['pkg_start_date'];
                         $data['expire_timestamp']  =$package_dates['pkg_end_date'];
@@ -4187,10 +4189,10 @@ class Admin extends CI_Controller {
 
     }    
 
-     function get_package_dates($advertisement_id,$package_id){
+     function get_package_dates($pkg_start_date,$advertisement_id,$package_id){
 
         
-        $date = new DateTime(date("Y-m-d h:i:s"));
+        $date = new DateTime($pkg_start_date);
         $date_result ['pkg_start_date'] =  $date->format('Y-m-d h:i:s');
  
 
